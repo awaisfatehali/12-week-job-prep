@@ -33,3 +33,19 @@ function sayBye(){
 // the initilizations that are done using let or const are not hoisted
  
 
+//++++++++++++++++++++++ Temporal dead zone +++++++++++++++++++++++//
+
+// since the veriables initialized with var , let are nnot hoisted to the top so which means that if
+// we try to access that veriables before initializing it it would through an error and from the line 
+// of that error and the point where it is initialized that veriable cant be accesed that area is called temporal dead zone.
+
+// example
+
+console.log(a);
+// temporal dead zone
+// temporal dead zone
+// temporal dead zone
+// temporal dead zone
+// temporal dead zone
+// temporal dead zone
+const a = 20;
