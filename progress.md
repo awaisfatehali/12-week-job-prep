@@ -5,3 +5,7 @@ day 1 :
 4. temporal dead zones
 5. array 
 
+Day 2:
+- Learned closures with examples
+<!-- - Practiced string problems
+- Understood hashmap usage in strings -->
