@@ -40,3 +40,282 @@ Promise.resolve().then(()=>{ // webapi->microtask queue(1st priority)->event loo
 })
 
 console.log("D"); // this is sync so it uses directly call stack to be executed
+
+// 📌 What is Asynchronous JavaScript?
+
+// JavaScript is single-threaded.
+
+// That means:
+
+// One call stack
+
+// One task at a time
+
+// If something takes time (API call, file read, DB query), JS doesn’t wait — it continues running other code.
+
+// That behavior is called Asynchronous JavaScript.
+
+// 🔥 Why Do We Need Async JS?
+
+// Some operations take time:
+
+// Fetching data from API
+
+// Reading files
+
+// Database queries
+
+// Timers (setTimeout)
+
+// Authentication
+
+// If JS waited for these, the whole app would freeze.
+
+// Async allows:
+// ✅ Non-blocking behavior
+// ✅ Better performance
+// ✅ Smooth user experience
+
+// 🧠 How JavaScript Handles Async (Very Important)
+
+// JS uses:
+
+// Call Stack
+
+// Web APIs (Browser / Node APIs)
+
+// Callback Queue
+
+// Event Loop
+
+// Flow:
+
+// Async task goes to Web API
+
+// After completion → goes to Callback Queue
+
+// Event Loop checks if call stack is empty
+
+// If empty → moves callback to stack
+
+// That’s how JS stays non-blocking.
+
+// ⏳ setTimeout Example
+// console.log("Start");
+
+// setTimeout(() => {
+//   console.log("Inside Timeout");
+// }, 2000);
+
+// console.log("End");
+
+// Output:
+// Start
+// End
+// Inside Timeout
+
+
+// Why?
+
+// Because setTimeout is async → goes to Web API → callback queue → executed later.
+
+// 📦 1️⃣ Callbacks
+
+// A callback is a function passed into another function to be executed later.
+
+// Example:
+// function fetchData(callback) {
+//   setTimeout(() => {
+//     callback("Data received");
+//   }, 2000);
+// }
+
+// fetchData((data) => {
+//   console.log(data);
+// });
+
+// Problem: Callback Hell 😵
+// getUser(function(user) {
+//   getOrders(user, function(orders) {
+//     getPayment(orders, function(payment) {
+//       console.log(payment);
+//     });
+//   });
+// });
+
+
+// Hard to read
+
+// Hard to maintain
+
+// Pyramid structure
+
+// 📦 2️⃣ Promises
+
+// Promise solves callback hell.
+
+// A Promise has 3 states:
+
+// Pending
+
+// Fulfilled
+
+// Rejected
+
+// Creating a Promise
+// const myPromise = new Promise((resolve, reject) => {
+//   let success = true;
+
+//   if (success) {
+//     resolve("Operation successful");
+//   } else {
+//     reject("Operation failed");
+//   }
+// });
+
+// Consuming a Promise
+// myPromise
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// 🔥 Real Example (API Simulation)
+// function fetchUser() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve("User Data");
+//     }, 2000);
+//   });
+// }
+
+// fetchUser()
+//   .then((data) => console.log(data))
+//   .catch((err) => console.log(err));
+
+// 📦 3️⃣ Async / Await (Best & Cleanest Way)
+
+// Async/await is just syntactic sugar over promises.
+
+// It makes async code look synchronous.
+
+// Example:
+// function fetchUser() {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve("User Data");
+//     }, 2000);
+//   });
+// }
+
+// async function getUser() {
+//   const data = await fetchUser();
+//   console.log(data);
+// }
+
+// getUser();
+
+// 🚨 Error Handling with Async/Await
+// async function getUser() {
+//   try {
+//     const data = await fetchUser();
+//     console.log(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+
+// Always use try/catch.
+
+// ⚡ Promise vs Async/Await
+// Feature	Promise	Async/Await
+// Readability	Medium	Very High
+// Error Handling	.catch()	try/catch
+// Looks synchronous	❌	✅
+// Modern Standard	✅	✅ (Preferred)
+
+// Use async/await in production.
+
+// 🔄 Microtasks vs Macrotasks (Advanced but Important)
+
+// Macrotasks:
+
+// setTimeout
+
+// setInterval
+
+// setImmediate
+
+// Microtasks:
+
+// Promises (.then)
+
+// queueMicrotask
+
+// Microtasks execute before macrotasks.
+
+// Example:
+
+// setTimeout(() => console.log("Timeout"));
+
+// Promise.resolve().then(() => console.log("Promise"));
+
+// console.log("End");
+
+
+// Output:
+
+// End
+// Promise
+// Timeout
+
+
+// Because microtasks run first.
+
+// 🎯 Real Backend Use Cases (Important for You)
+
+// Since you're learning backend:
+
+// Async is used in:
+
+// // Database
+// await User.find();
+
+// // API call
+// await fetch(url);
+
+// // File handling
+// await fs.promises.readFile();
+
+// // Authentication
+// await bcrypt.compare();
+
+
+// Without async → backend blocks.
+
+// 🧩 Important Interview Questions
+
+// Is JavaScript synchronous or asynchronous?
+// → Single-threaded but handles async via event loop.
+
+// What is event loop?
+// → Mechanism that moves callback from queue to stack.
+
+// Difference between Promise and Async/Await?
+
+// What is callback hell?
+
+// Microtask vs macrotask difference?
+
+// 🧠 Mental Model to Remember
+
+// Think like this:
+
+// JS does one thing at a time
+// Slow tasks go outside
+// Event loop brings them back later
+
+// That’s Async JS.
