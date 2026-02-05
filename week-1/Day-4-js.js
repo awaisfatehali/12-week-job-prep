@@ -127,3 +127,12 @@ setTimeout(() => console.log(obj.value), 1000); // 'obj' can't be GC'd until tim
    - Remove listeners and intervals
    - Nullify large arrays/objects when done
 */
+
+
+
+// Part 3:
+// ------------------------Error Handling in JS----------------------------
+// Error: error is any bug that disrupts or stop the normal flow of execution of a code
+// Types:
+// 1- Compile time error: occur before execution of code During Parsing
+// Run-time Error: error occured  in execution phase of the code 
