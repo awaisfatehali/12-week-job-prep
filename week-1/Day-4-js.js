@@ -136,3 +136,55 @@ setTimeout(() => console.log(obj.value), 1000); // 'obj' can't be GC'd until tim
 // Types:
 // 1- Compile time error: occur before execution of code During Parsing
 // Run-time Error: error occured  in execution phase of the code 
+
+// week-1/day-4-errors.js
+
+// 1️⃣ Custom Error Class
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+// 2️⃣ Function that throws error if input is invalid
+function validateUserInput(input) {
+  if (typeof input !== "string" || input.trim() === "") {
+    throw new ValidationError("Input must be a non-empty string");
+  }
+  return `Valid input: ${input}`;
+}
+
+// 3️⃣ Using try/catch
+
+// ---- Handled Error ----
+console.log("\n--- Handled Error Example ---");
+try {
+  validateUserInput(123); // invalid input
+} catch (err) {
+  // Log clean message
+  console.error("Clean Message:", err.message);
+
+  // Log full stack trace separately
+  console.error("Stack Trace:\n", err.stack);
+}
+
+// ---- Successful Case ----
+console.log("\n--- Successful Case ---");
+try {
+  const result = validateUserInput("Awais");
+  console.log(result);
+} catch (err) {
+  console.error(err.message);
+}
+
+// 4️⃣ Simulating Unhandled Error
+console.log("\n--- Unhandled Error Example ---");
+
+// This will crash the Node.js process
+// because it is not wrapped inside try/catch
+validateUserInput(null);
+
+// Observe Node.js behavior:
+// Node will print the error name, message, and full stack trace,
+// then terminate the process.
